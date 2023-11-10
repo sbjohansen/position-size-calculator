@@ -3,11 +3,11 @@ name: Build and Release
 on:
   push:
     branches:
-      - main  # or any other branch you want to trigger the build
+      - main  # Triggers the workflow on push events to the main branch
 
 jobs:
   build:
-    runs-on: windows-latest  # or any other OS you prefer
+    runs-on: windows-latest  # Build on a Windows runner
 
     steps:
     - uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'  # Specify the Python version
+        python-version: '3.x'  # Use Python 3.x
 
     - name: Install PyInstaller
       run: pip install pyinstaller
@@ -30,3 +30,11 @@ jobs:
       with:
         name: position-calculator
         path: dist/position-calculator.exe
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/position-calculator.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
