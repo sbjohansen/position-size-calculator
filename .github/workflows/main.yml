@@ -1,0 +1,32 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main  # or any other branch you want to trigger the build
+
+jobs:
+  build:
+    runs-on: windows-latest  # or any other OS you prefer
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Specify the Python version
+
+    - name: Install PyInstaller
+      run: pip install pyinstaller
+
+    - name: Build Executable
+      run: pyinstaller --onefile --windowed position-calculator.py
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: position-calculator
+        path: dist/position-calculator.exe
