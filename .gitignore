@@ -26,6 +26,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 venv/
+.idea
 
 # PyInstaller
 # Usually these files & directories are generated if you run 'pyinstaller'
