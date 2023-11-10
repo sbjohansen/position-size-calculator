@@ -31,8 +31,6 @@ venv/
 # PyInstaller
 # Usually these files & directories are generated if you run 'pyinstaller'
 *.spec
-dist/
-build/
 pyinstaller/
 
 # Jupyter Notebook
