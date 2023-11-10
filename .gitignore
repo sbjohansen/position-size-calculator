@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -26,6 +25,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+venv/
 
 # PyInstaller
 # Usually these files & directories are generated if you run 'pyinstaller'

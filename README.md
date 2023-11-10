@@ -30,7 +30,7 @@ This is a Python application built using the tkinter library that allows users t
 To run this application, make sure you have Python installed on your system. You can run the following command:
 
 ```bash
-python your_app_name.py
+python position-calculator.py
 ```
 
 ## License
