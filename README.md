@@ -1,6 +1,6 @@
 # Position Size and Profit Calculator
 
-This is a Python application built using the tkinter library that allows users to calculate position sizes and potential losses based on their account balance, risk percentage, entry points, and stop-loss levels. It also provides the option to toggle "Cornix Mode," which adjusts position sizes for users trading with leverage.
+This is a Python application built using the tkinter library that allows users to calculate position sizes and potential losses based on their account balance, risk percentage, entry points, and stop-loss levels. It also provides the option to toggle "Cornix Mode," which adjusts position sizes for users using Cornix.
 
 ## Features
 
@@ -17,7 +17,7 @@ This is a Python application built using the tkinter library that allows users t
 2. Choose your desired entry type in the "Settings" section.
 3. Enter your entry points and corresponding prices in the "Entry Points" section.
 4. Click the "Calculate" button to see the calculated position sizes and potential losses.
-5. Optionally, enable "Cornix Mode" to adjust position sizes for leveraged trading.
+5. Optionally, enable "Cornix Mode" to adjust position sizes for users using Cornix.
 
 ## Source Code and Links
 
