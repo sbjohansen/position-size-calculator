@@ -27,7 +27,7 @@ This is a Python application built using the tkinter library that allows users t
 
 # Releases
 
-- [Releases](https://github.com/sbjohansen/position-size-calculator/releases/tag/v1.0.0): Downloadable application file
+- [Releases](https://github.com/sbjohansen/position-size-calculator/releases): Downloadable application file
 
 ## How to Run
 
