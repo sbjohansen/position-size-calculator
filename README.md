@@ -24,6 +24,11 @@ This is a Python application built using the tkinter library that allows users t
 - [Source Code](https://github.com/sbjohansen/position-size-calculator): View the source code for this application on GitHub.
 - [Cornix](https://dashboard.cornix.io/register/896E5A8B): Access the Cornix trading platform.
 
+
+# Releases
+
+- [Releases](https://github.com/sbjohansen/position-size-calculator/releases=): Downloadable application file
+
 ## How to Run
 
 
