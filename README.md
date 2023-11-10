@@ -8,7 +8,7 @@ This is a Python application built using the tkinter library that allows users t
 - Choose between two entry types: "Evenly Divided Entry" or "Separate Risk Per Entry."
 - Add multiple entry points with corresponding prices.
 - Calculate position sizes and potential losses.
-- Optionally, enable "Cornix Mode" to adjust position sizes for leveraged trading.
+- Optionally, enable "Cornix Mode" to adjust position sizes for Cornix users (takes leverage into consideration).
 - Access source code and relevant links directly from the application.
 
 ## Usage
