@@ -38,5 +38,7 @@ To run this application, make sure you have Python installed on your system. You
 python position-calculator.py
 ```
 
+Alternatively, you can download the executable file from the [Releases](https://github.com/sbjohansen/position-size-calculator/releases) page.
+
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
