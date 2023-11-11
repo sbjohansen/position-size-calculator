@@ -32,6 +32,7 @@ jobs:
         path: dist/position-calculator.exe
 
     - name: Generate Tag and Release Name
+      shell: bash
       run: echo "TAG_NAME=$(date +'%Y%m%d%H%M%S')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
     - name: Create Release
