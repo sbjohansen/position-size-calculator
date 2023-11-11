@@ -70,7 +70,14 @@ def calculate_positions():
 
         total_position_size = sum(position_sizes)
 
-        result_text += f"\nTotal Position Size: ${total_position_size:.2f}\n"
+        result_text += f"\nTotal Position Size: ${total_position_size:.2f}"
+
+        if cornix_mode.get():
+            cornix_total_size = total_position_size / leverage
+            result_text += f" (Cornix: ${cornix_total_size:.2f})"
+
+        result_text += "\n"
+
         result_text += f"Loss if SL hits: ${total_loss_if_sl_hits:.2f}"
 
         position_size_result['text'] = result_text
