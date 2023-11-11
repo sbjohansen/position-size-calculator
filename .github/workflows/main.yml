@@ -23,7 +23,7 @@ jobs:
       run: pip install pyinstaller
 
     - name: Build Executable
-      run: pyinstaller --onefile --windowed --icon=icon.ico position-calculator.py
+      run: pyinstaller --onefile --windowed --icon=calc.ico position-calculator.py
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
