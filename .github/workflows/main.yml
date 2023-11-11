@@ -3,11 +3,11 @@ name: Build and Release
 on:
   push:
     branches:
-      - main  # Triggers the workflow on push events to the main branch
+      - main
 
 jobs:
   build:
-    runs-on: windows-latest  # Build on a Windows runner
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -17,7 +17,10 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'  # Use Python 3.x
+        python-version: '3.9'
+
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
 
     - name: Install PyInstaller
       run: pip install pyinstaller
@@ -31,14 +34,18 @@ jobs:
         name: position-calculator
         path: dist/position-calculator.exe
 
+    - name: Trim Ref from GitHub Ref
+      id: trim_ref
+      run: echo "RELEASE_TAG=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ env.RELEASE_TAG }}
+        release_name: Release ${{ env.RELEASE_TAG }}
         draft: false
         prerelease: false
 
