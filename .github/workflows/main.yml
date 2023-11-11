@@ -26,7 +26,7 @@ jobs:
       run: pip install pyinstaller
 
     - name: Build Executable
-      run: pyinstaller --onefile --windowed --icon=calc.ico position-calculator.py
+      run: pyinstaller --onefile --windowed --icon=./calc.ico position-calculator.py
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
@@ -36,7 +36,7 @@ jobs:
 
     - name: Generate Tag and Release Name
       shell: bash
-      run: echo "TAG_NAME=$(date +'%Y%m%d%H%M%S')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      run: echo "TAG_NAME=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
     - name: Create Release
       id: create_release
