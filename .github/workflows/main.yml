@@ -19,14 +19,11 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Install Dependencies
-      run: pip install -r requirements.txt
-
     - name: Install PyInstaller
       run: pip install pyinstaller
 
     - name: Build Executable
-      run: pyinstaller --onefile --windowed position-calculator.py
+      run: pyinstaller --onefile --windowed --icon=icon.ico position-calculator.py
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
