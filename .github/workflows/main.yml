@@ -63,14 +63,15 @@ jobs:
     needs: [build-windows, build-mac]
     runs-on: ubuntu-latest
     steps:
-    - name: Download Artifacts
-      uses: actions/download-artifact@v2
-      with:
-        path: dist
-
-    - name: Generate Tag and Release Name
-      shell: bash
-      run: echo "TAG_NAME=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+    - name: Check for Existing Tag
+      id: check_tag
+      run: |
+        TAG_NAME=$(date +'%Y%m%d')
+        if git rev-parse "$TAG_NAME^{tag}" >/dev/null 2>&1; then
+          echo "Tag $TAG_NAME already exists!"
+          exit 1
+        fi
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
     - name: Create Release
       id: create_release
