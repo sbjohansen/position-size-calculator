@@ -90,7 +90,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/position-calculator-windows/position-calculator.exe
+        asset_path: dist/position-calculator.exe
         asset_name: position-calculator-windows.exe
         asset_content_type: application/x-msdownload
 
@@ -100,6 +100,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/position-calculator-mac/position-calculator
+        asset_path: dist/position-calculator
         asset_name: position-calculator-mac
         asset_content_type: application/octet-stream
