@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
 
     steps:
@@ -25,15 +25,44 @@ jobs:
     - name: Install PyInstaller
       run: pip install pyinstaller
 
-    - name: Build Executable
+    - name: Build Executable for Windows
       run: pyinstaller --onefile --windowed --icon=./calc.ico position-calculator.py
 
-    - name: Upload Artifact
+    - name: Upload Artifact for Windows
       uses: actions/upload-artifact@v2
       with:
-        name: position-calculator
+        name: position-calculator-windows
         path: dist/position-calculator.exe
 
+  build-mac:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install PyInstaller
+      run: pip install pyinstaller
+
+    - name: Build Executable for Mac
+      run: pyinstaller --onefile --windowed position-calculator.py
+
+    - name: Upload Artifact for Mac
+      uses: actions/upload-artifact@v2
+      with:
+        name: position-calculator-mac
+        path: dist/position-calculator
+
+  release:
+    needs: [build-windows, build-mac]
+    runs-on: ubuntu-latest
+    steps:
     - name: Generate Tag and Release Name
       shell: bash
       run: echo "TAG_NAME=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
@@ -49,12 +78,22 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload Release Asset
+    - name: Upload Release Asset for Windows
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: dist/position-calculator.exe
-        asset_name: position-calculator.exe
+        asset_name: position-calculator-windows.exe
         asset_content_type: application/x-msdownload
+
+    - name: Upload Release Asset for Mac
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: dist/position-calculator
+        asset_name: position-calculator-mac
+        asset_content_type: application/octet-stream
