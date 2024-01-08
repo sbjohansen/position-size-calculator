@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: position-calculator-windows
-        path: dist/position-calculator.exe
+        path: ./dist/position-calculator.exe
 
   build-mac:
     runs-on: macos-latest
@@ -57,7 +57,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: position-calculator-mac
-        path: dist/position-calculator
+        path: ./dist/position-calculator
 
   release:
     needs: [build-windows, build-mac]
