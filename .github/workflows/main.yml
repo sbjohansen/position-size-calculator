@@ -65,9 +65,7 @@ jobs:
     steps:
     - name: Generate Tag and Release Name
       shell: bash
-      run: |
-        DATE_TAG=$(date +'%Y%m%d%H%M%S')
-        echo "TAG_NAME=release-$DATE_TAG" >> $GITHUB_ENV
+      run: echo "TAG_NAME=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
     - name: Create Release
       id: create_release
