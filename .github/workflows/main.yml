@@ -34,6 +34,31 @@ jobs:
         name: position-calculator-windows
         path: dist/position-calculator.exe
 
+    - name: Generate Windows Tag and Release Name
+      shell: bash
+      run: echo "WINDOWS_TAG=win-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+    - name: Create Windows Release
+      id: create_windows_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.WINDOWS_TAG }}
+        release_name: Windows Release ${{ env.WINDOWS_TAG }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Windows Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_windows_release.outputs.upload_url }}
+        asset_path: dist/position-calculator.exe
+        asset_name: position-calculator-windows.exe
+        asset_content_type: application/x-msdownload
+
   build-mac:
     runs-on: macos-latest
 
@@ -59,41 +84,27 @@ jobs:
         name: position-calculator-mac
         path: dist/position-calculator
 
-  create-release:
-    needs: [build-windows, build-mac]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Generate Tag and Release Name
+    - name: Generate Mac Tag and Release Name
       shell: bash
-      run: echo "TAG_NAME=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      run: echo "MAC_TAG=mac-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
-    - name: Create Release
-      id: create_release
+    - name: Create Mac Release
+      id: create_mac_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.TAG_NAME }}
-        release_name: Release ${{ env.TAG_NAME }}
+        tag_name: ${{ env.MAC_TAG }}
+        release_name: Mac Release ${{ env.MAC_TAG }}
         draft: false
         prerelease: false
 
-    - name: Upload Release Asset for Windows
+    - name: Upload Mac Release Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/position-calculator.exe
-        asset_name: position-calculator-windows.exe
-        asset_content_type: application/x-msdownload
-
-    - name: Upload Release Asset for Mac
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        upload_url: ${{ steps.create_mac_release.outputs.upload_url }}
         asset_path: dist/position-calculator
         asset_name: position-calculator-mac
         asset_content_type: application/octet-stream
