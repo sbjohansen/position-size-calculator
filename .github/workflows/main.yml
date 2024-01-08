@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: position-calculator-windows
-        path: ./dist/position-calculator.exe
+        path: dist/position-calculator.exe
 
   build-mac:
     runs-on: macos-latest
@@ -57,17 +57,15 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: position-calculator-mac
-        path: ./dist/position-calculator
+        path: dist/position-calculator
 
-  release:
+  create-release:
     needs: [build-windows, build-mac]
     runs-on: ubuntu-latest
     steps:
     - name: Generate Tag and Release Name
       shell: bash
-      run: |
-        DATE_TAG=$(date +'%Y%m%d%H%M%S')
-        echo "TAG_NAME=release-$DATE_TAG" >> $GITHUB_ENV
+      run: echo "TAG_NAME=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
     - name: Create Release
       id: create_release
@@ -86,7 +84,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/position-calculator.exe
+        asset_path: dist/position-calculator.exe
         asset_name: position-calculator-windows.exe
         asset_content_type: application/x-msdownload
 
@@ -96,6 +94,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/position-calculator
+        asset_path: dist/position-calculator
         asset_name: position-calculator-mac
         asset_content_type: application/octet-stream
